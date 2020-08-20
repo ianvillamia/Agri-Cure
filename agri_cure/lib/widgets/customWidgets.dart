@@ -4,8 +4,8 @@ class CustomWidgets {
   static circle({@required Color color, @required size}) {
     return ClipOval(
       child: Container(
-        width: size.width * .05,
-        height: size.height * .03,
+        width: size.width * .035,
+        height: size.height * .02,
         color: color,
       ),
     );

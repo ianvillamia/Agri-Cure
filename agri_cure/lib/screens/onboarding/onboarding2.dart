@@ -47,18 +47,6 @@ class _Onboarding2State extends State<Onboarding2> {
             SizedBox(
               height: size.height * .05,
             ),
-            Container(
-              width: size.width * .8,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  CustomWidgets.circle(color: Colors.grey, size: size),
-                  CustomWidgets.circle(color: Colors.green, size: size),
-                  CustomWidgets.circle(color: Colors.grey, size: size),
-                  CustomWidgets.circle(color: Colors.grey, size: size),
-                ],
-              ),
-            )
           ],
         ),
       ),
