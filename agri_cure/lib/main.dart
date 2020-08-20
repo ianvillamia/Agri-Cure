@@ -1,5 +1,6 @@
 import 'package:agri_cure/providers/pageVIewProvider.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'services/routing.dart';
 import 'screens/Landing.dart';
@@ -24,6 +25,9 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         theme: ThemeData(
           primarySwatch: Colors.blue,
+          textTheme: GoogleFonts.openSansTextTheme(
+            Theme.of(context).textTheme,
+          ),
         ),
         home: Landing(),
       ),

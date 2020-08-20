@@ -1,18 +1,18 @@
-import 'package:agri_cure/providers/pageVIewProvider.dart';
 import 'package:agri_cure/screens/onboarding/circles.dart';
 import 'package:agri_cure/widgets/customTextStyles.dart';
 import 'package:agri_cure/widgets/customWidgets.dart';
 import 'package:flutter/material.dart';
+import 'package:agri_cure/providers/pageVIewProvider.dart';
 import 'package:provider/provider.dart';
 
-class Onboarding1 extends StatefulWidget {
-  Onboarding1({Key key}) : super(key: key);
+class Onboarding3 extends StatefulWidget {
+  Onboarding3({Key key}) : super(key: key);
 
   @override
-  _Onboarding1State createState() => _Onboarding1State();
+  _Onboarding3State createState() => _Onboarding3State();
 }
 
-class _Onboarding1State extends State<Onboarding1> {
+class _Onboarding3State extends State<Onboarding3> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -41,7 +41,7 @@ class _Onboarding1State extends State<Onboarding1> {
                   height: size.height * .05,
                 ),
                 Text(
-                  'TITLE1',
+                  'TITLE',
                   style: CustomTextStyles.boldText(),
                 ),
                 SizedBox(
@@ -63,9 +63,9 @@ class _Onboarding1State extends State<Onboarding1> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
+                        CustomWidgets.circle(color: Colors.grey, size: size),
+                        CustomWidgets.circle(color: Colors.grey, size: size),
                         CustomWidgets.circle(color: Colors.green, size: size),
-                        CustomWidgets.circle(color: Colors.grey, size: size),
-                        CustomWidgets.circle(color: Colors.grey, size: size),
                         CustomWidgets.circle(color: Colors.grey, size: size),
                       ],
                     ))

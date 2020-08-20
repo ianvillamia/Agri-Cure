@@ -22,7 +22,7 @@ class _LandingState extends State<Landing> {
             SizedBox(
               height: size.height * .1,
             ),
-            SlideInLeft(
+            Bounce(
               child: Container(
                 width: 300,
                 height: 300,
