@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'services/routing.dart';
+import 'screens/Landing.dart';
 
 void main() {
   FluroRouter.setupRouter();
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Wrapper(),
+      home: Landing(),
     );
   }
 }
