@@ -78,11 +78,29 @@ class _CropInventoryState extends State<CropInventory> {
                           )
                         ],
                       ),
-                      SizedBox(
-                        height: size.height * .02,
+                      Container(
+                        width: size.width,
+                        height: size.height * .1,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            _roundedButton(
+                                size: size,
+                                color: Colors.greenAccent,
+                                buttonText: 'For-Sale'),
+                            _roundedButton(
+                                size: size,
+                                color: Colors.yellow,
+                                buttonText: 'Pending'),
+                            _roundedButton(
+                                size: size,
+                                color: Colors.red,
+                                buttonText: 'Bought'),
+                          ],
+                        ),
                       ),
                       Container(
-                        height: size.height * .45,
+                        height: size.height * .34,
                         child: SingleChildScrollView(
                           child: Column(
                             children: <Widget>[
@@ -196,6 +214,29 @@ class _CropInventoryState extends State<CropInventory> {
         ),
       ),
     );
+  }
+
+  _roundedButton(
+      {@required size, @required Color color, @required buttonText}) {
+    return MaterialButton(
+        height: size.height * .03,
+        color: color,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30),
+        ),
+        onPressed: () {},
+        child: Container(
+          width: size.width * .19,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              Text(
+                buttonText,
+                style: CustomTextStyles.whiteText(),
+              ),
+            ],
+          ),
+        ));
   }
 
   _buildCard({
