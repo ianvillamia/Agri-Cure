@@ -29,6 +29,8 @@ dependencies:
   provider: ^4.0.4
   google_fonts: 1.0.0
   flare_splash_screen: ^3.0.1
+  cloud_firestore: ^0.13.6
+  firebase_core: ^0.4.0+9
 
 dev_dependencies:
   flutter_test:

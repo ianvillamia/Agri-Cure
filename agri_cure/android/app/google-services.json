@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "292735279349",
+    "firebase_url": "https://impact2020-2da54.firebaseio.com",
+    "project_id": "impact2020-2da54",
+    "storage_bucket": "impact2020-2da54.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:292735279349:android:67a19ddf1293563ac1e5bc",
+        "android_client_info": {
+          "package_name": "com.example.agri_cure"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "292735279349-g7cgeigpkingp6adjaoe3h2lbgdq3q2b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZskXEEKmWyOiSJUUNGCZQv0V4SqKPi9Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "292735279349-g7cgeigpkingp6adjaoe3h2lbgdq3q2b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,3 +1,5 @@
+import 'package:agri_cure/models/farmers.dart';
+import 'package:agri_cure/services/firestore/fireService.dart';
 import 'package:agri_cure/services/routes.dart';
 import 'package:agri_cure/widgets/customTextStyles.dart';
 import 'package:animate_do/animate_do.dart';
@@ -11,9 +13,19 @@ class RegisterFarmerScreen extends StatefulWidget {
 }
 
 class _RegisterFarmerScreenState extends State<RegisterFarmerScreen> {
+  String gender = 'Male';
+  TextEditingController _firstNameController = TextEditingController(),
+      _lastNameController = TextEditingController(),
+      _addressController = TextEditingController(),
+      _birthDayController = TextEditingController(),
+      _birthAddressController = TextEditingController(),
+      _civilStatusController = TextEditingController(),
+      _contactNumberController = TextEditingController(),
+      _governmentIdController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+
     return Scaffold(
       body: Container(
         width: size.width,
@@ -74,6 +86,7 @@ class _RegisterFarmerScreenState extends State<RegisterFarmerScreen> {
                           Container(
                             width: size.width * .4,
                             child: TextField(
+                              controller: _firstNameController,
                               decoration: InputDecoration(
                                 contentPadding: const EdgeInsets.all(8.0),
                                 labelText: 'Pangalan',
@@ -90,6 +103,7 @@ class _RegisterFarmerScreenState extends State<RegisterFarmerScreen> {
                           Container(
                             width: size.width * .4,
                             child: TextField(
+                              controller: _lastNameController,
                               decoration: InputDecoration(
                                 contentPadding: const EdgeInsets.all(8.0),
                                 labelText: 'Apelyido',
@@ -106,6 +120,7 @@ class _RegisterFarmerScreenState extends State<RegisterFarmerScreen> {
                         height: size.height * .02,
                       ),
                       _buildForm(
+                          controller: _addressController,
                           label: 'Tirahan',
                           size: size,
                           hint: '1234 Cabanatuan'),
@@ -117,6 +132,7 @@ class _RegisterFarmerScreenState extends State<RegisterFarmerScreen> {
                           Container(
                             width: size.width * .4,
                             child: TextField(
+                              controller: _birthDayController,
                               decoration: InputDecoration(
                                 suffixIcon: IconButton(
                                   onPressed: () {},
@@ -135,28 +151,43 @@ class _RegisterFarmerScreenState extends State<RegisterFarmerScreen> {
                             width: size.width * .02,
                           ),
                           Container(
-                            width: size.width * .4,
-                            child: TextField(
-                              decoration: InputDecoration(
-                                suffixIcon: IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(Icons.arrow_drop_down),
-                                ),
-                                contentPadding: const EdgeInsets.all(8.0),
-                                labelText: 'Kasarian',
-                                border: OutlineInputBorder(
+                              width: size.width * .38,
+                              height: size.height * .07,
+                              decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(15),
+                                  border: Border.all(color: Colors.grey)),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8),
+                                child: DropdownButton<String>(
+                                  value: gender,
+                                  icon: Icon(Icons.arrow_downward),
+                                  iconSize: 24,
+                                  elevation: 16,
+                                  style: TextStyle(color: Colors.deepPurple),
+                                  onChanged: (String newValue) {
+                                    setState(() {
+                                      gender = newValue;
+                                    });
+                                  },
+                                  items: <String>[
+                                    'Male',
+                                    'Female',
+                                  ].map<DropdownMenuItem<String>>(
+                                      (String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                    );
+                                  }).toList(),
                                 ),
-                                hintText: "Lalake",
-                              ),
-                            ),
-                          ),
+                              )),
                         ],
                       ),
                       SizedBox(
                         height: size.height * .02,
                       ),
                       _buildForm(
+                          controller: _birthAddressController,
                           label: 'Lugar sa Kapanganakan',
                           size: size,
                           hint: '1236 Camp Tinio Cabanatuan City'),
@@ -168,6 +199,7 @@ class _RegisterFarmerScreenState extends State<RegisterFarmerScreen> {
                           Container(
                             width: size.width * .4,
                             child: TextField(
+                              controller: _civilStatusController,
                               decoration: InputDecoration(
                                 suffixIcon: IconButton(
                                   onPressed: () {},
@@ -188,10 +220,12 @@ class _RegisterFarmerScreenState extends State<RegisterFarmerScreen> {
                           Container(
                             width: size.width * .4,
                             child: TextField(
+                              keyboardType: TextInputType.number,
+                              controller: _contactNumberController,
                               decoration: InputDecoration(
                                 suffixIcon: IconButton(
                                   onPressed: () {},
-                                  icon: Icon(Icons.arrow_drop_down),
+                                  icon: Icon(Icons.network_cell),
                                 ),
                                 contentPadding: const EdgeInsets.all(8.0),
                                 labelText: 'Contact no',
@@ -210,6 +244,7 @@ class _RegisterFarmerScreenState extends State<RegisterFarmerScreen> {
                       Container(
                         width: size.width * .8,
                         child: TextField(
+                          controller: _governmentIdController,
                           decoration: InputDecoration(
                             suffixIcon: IconButton(
                               onPressed: () {},
@@ -239,8 +274,31 @@ class _RegisterFarmerScreenState extends State<RegisterFarmerScreen> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),
-                        onPressed: () {
-                          Navigator.pushNamed(context, Routes.registerFarm);
+                        onPressed: () async {
+                          String firstName = _firstNameController.text;
+                          String lastName = _lastNameController.text;
+                          String address = _addressController.text;
+                          String birthDate = _birthDayController.text;
+
+                          String civilStatus = _civilStatusController.text;
+                          String contactNumber = _contactNumberController.text;
+                          String governmentId = _governmentIdController.text;
+                          var farmer = {
+                            'firstName': firstName,
+                            'lastName': lastName,
+                            'address': address,
+                            'birthDate': birthDate,
+                            'gender': gender,
+                            'civilStatus': civilStatus,
+                            'contactNumber': contactNumber,
+                            'governmentId': governmentId
+                          };
+                          await FireService()
+                              .addProductPurchaseRequest(map: farmer)
+                              .then((val) {
+                            Navigator.pushNamed(context, Routes.registerFarm);
+                          });
+                          // Navigator.pushNamed(context, Routes.registerFarm);
                         },
                         child: Container(
                           width: size.width * .3,
@@ -268,10 +326,16 @@ class _RegisterFarmerScreenState extends State<RegisterFarmerScreen> {
     );
   }
 
-  _buildForm({@required label, @required size, @required hint, bool ispass}) {
+  _buildForm(
+      {@required label,
+      @required size,
+      @required hint,
+      bool ispass,
+      @required controller}) {
     return Container(
       width: size.width * .8,
       child: TextField(
+        controller: controller,
         obscureText: ispass ?? false,
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.all(8.0),

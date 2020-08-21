@@ -12,6 +12,12 @@ class RegisterFarmScreen extends StatefulWidget {
 }
 
 class _RegisterFarmScreenState extends State<RegisterFarmScreen> {
+  TextEditingController landSize = TextEditingController(),
+      address = TextEditingController(),
+      lotOwnerShipStatus = TextEditingController(),
+      supportingDocument = TextEditingController(),
+      monthOfYield = TextEditingController(),
+      numberOfYield = TextEditingController();
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -75,6 +81,7 @@ class _RegisterFarmScreenState extends State<RegisterFarmScreen> {
                           Container(
                             width: size.width * .4,
                             child: TextField(
+                              controller: landSize,
                               decoration: InputDecoration(
                                 contentPadding: const EdgeInsets.all(8.0),
                                 labelText: 'Sukat ng Lupa',
@@ -91,6 +98,7 @@ class _RegisterFarmScreenState extends State<RegisterFarmScreen> {
                           Container(
                             width: size.width * .4,
                             child: TextField(
+                              controller: address,
                               decoration: InputDecoration(
                                 contentPadding: const EdgeInsets.all(8.0),
                                 labelText: 'Lokasyon',
@@ -107,6 +115,7 @@ class _RegisterFarmScreenState extends State<RegisterFarmScreen> {
                         height: size.height * .02,
                       ),
                       _buildForm(
+                          controller: lotOwnerShipStatus,
                           label: 'Lot Ownership Status',
                           size: size,
                           hint: 'owned,etc,etc'),
@@ -114,6 +123,7 @@ class _RegisterFarmScreenState extends State<RegisterFarmScreen> {
                         height: size.height * .02,
                       ),
                       _buildForm(
+                          controller: supportingDocument,
                           label: 'Supporting Document',
                           size: size,
                           hint: 'document'),
@@ -121,6 +131,7 @@ class _RegisterFarmScreenState extends State<RegisterFarmScreen> {
                         height: size.height * .02,
                       ),
                       _buildForm(
+                          controller: monthOfYield,
                           label: 'Buwan ng anihan',
                           size: size,
                           hint: 'owned,etc,etc'),
@@ -130,6 +141,8 @@ class _RegisterFarmScreenState extends State<RegisterFarmScreen> {
                       Container(
                         width: size.width * .8,
                         child: TextField(
+                          keyboardType: TextInputType.number,
+                          controller: numberOfYield,
                           decoration: InputDecoration(
                             suffixIcon: Icon(Icons.arrow_drop_down),
                             contentPadding: const EdgeInsets.all(8.0),
@@ -156,8 +169,16 @@ class _RegisterFarmScreenState extends State<RegisterFarmScreen> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),
-                        onPressed: () {
-                          Navigator.pushNamed(context, Routes.registerSuccess);
+                        onPressed: () async {
+                          var farm = {
+                            'landSize': landSize.text,
+                            'address': address,
+                            'lotOwnerShipStatus': lotOwnerShipStatus.text,
+                            'supportingDocument': supportingDocument.text,
+                            'buwanNgAanihan': monthOfYield,
+                            'yieldPerYear',
+                            numberOfYield
+                          };
                         },
                         child: Container(
                           width: size.width * .3,
@@ -186,10 +207,16 @@ class _RegisterFarmScreenState extends State<RegisterFarmScreen> {
     );
   }
 
-  _buildForm({@required label, @required size, @required hint, bool ispass}) {
+  _buildForm(
+      {@required label,
+      @required size,
+      @required hint,
+      bool ispass,
+      @required controller}) {
     return Container(
       width: size.width * .8,
       child: TextField(
+        controller: controller,
         obscureText: ispass ?? false,
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.all(8.0),
