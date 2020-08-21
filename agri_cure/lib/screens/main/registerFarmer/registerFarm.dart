@@ -176,8 +176,7 @@ class _RegisterFarmScreenState extends State<RegisterFarmScreen> {
                             'lotOwnerShipStatus': lotOwnerShipStatus.text,
                             'supportingDocument': supportingDocument.text,
                             'buwanNgAanihan': monthOfYield,
-                            'yieldPerYear',
-                            numberOfYield
+                            'yieldPerYear': numberOfYield
                           };
                         },
                         child: Container(

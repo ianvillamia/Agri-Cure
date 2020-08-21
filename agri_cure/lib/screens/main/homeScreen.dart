@@ -108,50 +108,53 @@ class _HomeScreenState extends State<HomeScreen> {
       @required String icon,
       @required ontap,
       @required String buttonText}) {
-    return Container(
-      padding: EdgeInsets.all(10),
-      child: Stack(
-        children: <Widget>[
-          Container(
-              width: size.width * .4,
-              height: size.height * .30,
-              decoration: BoxDecoration(
-                  color: Color.fromRGBO(20, 170, 105, 1),
-                  borderRadius: BorderRadius.circular(20)),
-              child: Material(
-                color: Colors.transparent,
-                child: new InkWell(
-                  onTap: ontap,
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: <Widget>[
-                        Container(
-                          padding: EdgeInsets.all(9),
-                          width: 150,
-                          child: Text(
-                            buttonText,
-                            textAlign: TextAlign.center,
-                            style: CustomTextStyles.whiteText(),
+    return GestureDetector(
+      onTap: ontap,
+      child: Container(
+        padding: EdgeInsets.all(10),
+        child: Stack(
+          children: <Widget>[
+            Container(
+                width: size.width * .4,
+                height: size.height * .30,
+                decoration: BoxDecoration(
+                    color: Color.fromRGBO(20, 170, 105, 1),
+                    borderRadius: BorderRadius.circular(20)),
+                child: Material(
+                  color: Colors.transparent,
+                  child: new InkWell(
+                    onTap: ontap,
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          Container(
+                            padding: EdgeInsets.all(9),
+                            width: 150,
+                            child: Text(
+                              buttonText,
+                              textAlign: TextAlign.center,
+                              style: CustomTextStyles.whiteText(),
+                            ),
                           ),
-                        ),
-                      ]),
-                ),
-              )),
-          Positioned(
-            left: 5,
-            top: 5,
-            child: Container(
-              height: size.height * .22,
-              width: size.width * .37,
-              decoration: BoxDecoration(
-                  color: Color.fromRGBO(255, 222, 98, 1),
-                  borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(18),
-                      topLeft: Radius.circular(18)),
-                  image: DecorationImage(image: AssetImage(icon))),
+                        ]),
+                  ),
+                )),
+            Positioned(
+              left: 5,
+              top: 5,
+              child: Container(
+                height: size.height * .22,
+                width: size.width * .37,
+                decoration: BoxDecoration(
+                    color: Color.fromRGBO(255, 222, 98, 1),
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(18),
+                        topLeft: Radius.circular(18)),
+                    image: DecorationImage(image: AssetImage(icon))),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
 
