@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'services/routing.dart';
 import 'screens/Landing.dart';
+import 'splashscreen.dart';
 
 void main() {
   FluroRouter.setupRouter();
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
             Theme.of(context).textTheme,
           ),
         ),
-        home: Landing(),
+        home: SplashScreens(),
       ),
     );
   }
