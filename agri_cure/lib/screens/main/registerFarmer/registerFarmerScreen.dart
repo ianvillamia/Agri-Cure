@@ -1,3 +1,4 @@
+import 'package:agri_cure/services/routes.dart';
 import 'package:agri_cure/widgets/customTextStyles.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,7 @@ class _RegisterFarmerScreenState extends State<RegisterFarmerScreen> {
                   opacity: .9,
                   child: Container(
                     width: size.width,
-                    height: size.height * .4,
+                    height: size.height * .35,
                     decoration: BoxDecoration(
                         color: Colors.red,
                         image: DecorationImage(
@@ -239,7 +240,7 @@ class _RegisterFarmerScreenState extends State<RegisterFarmerScreen> {
                           borderRadius: BorderRadius.circular(30),
                         ),
                         onPressed: () {
-                          Navigator.pushNamed(context, '/registerFarm');
+                          Navigator.pushNamed(context, Routes.registerFarm);
                         },
                         child: Container(
                           width: size.width * .3,

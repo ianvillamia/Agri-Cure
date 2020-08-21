@@ -1,3 +1,4 @@
+import 'package:agri_cure/services/routes.dart';
 import 'package:agri_cure/widgets/customTextStyles.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     size: size,
                     icon: 'assets/home-icon1.png',
                     ontap: () {
-                      Navigator.pushNamed(context, '/registerFarmer');
+                      Navigator.pushNamed(context, Routes.registerFarmer);
                     },
                     buttonText: 'MAG REHISTRO NG MAGSASAKA'),
                 SizedBox(
@@ -52,7 +53,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 _buttonBuilder(
                     size: size,
                     icon: 'assets/home-icon4.png',
-                    ontap: () {},
+                    ontap: () {
+                      Navigator.pushNamed(context, Routes.cropPickup);
+                    },
                     buttonText: 'Schedule Crop-Pickup'),
                 SizedBox(
                   height: size.height * .05,
@@ -60,7 +63,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 _buttonBuilder(
                     size: size,
                     icon: 'assets/home-icon2.png',
-                    ontap: () {},
+                    ontap: () {
+                      Navigator.pushNamed(context, Routes.transactionScreen);
+                    },
                     buttonText: 'TALAAN NG MGA TRANSAKSYON'),
                 SizedBox(
                   height: size.height * .05,
@@ -68,8 +73,20 @@ class _HomeScreenState extends State<HomeScreen> {
                 _buttonBuilder(
                     size: size,
                     icon: 'assets/home-icon3.png',
-                    ontap: () {},
+                    ontap: () {
+                      Navigator.pushNamed(context, Routes.cropInventory);
+                    },
                     buttonText: 'TALAAN NG MGA PRODUKTO'),
+                SizedBox(
+                  height: size.height * .05,
+                ),
+                _buttonBuilder(
+                    size: size,
+                    icon: 'assets/home-icon3.png',
+                    ontap: () {
+                      Navigator.pushNamed(context, Routes.membersScreen);
+                    },
+                    buttonText: 'MGA MIYEMBRO'),
               ],
             ),
           ),
@@ -115,7 +132,7 @@ class _HomeScreenState extends State<HomeScreen> {
             left: 10,
             top: -10,
             child: Container(
-              height: size.height * .2,
+              height: size.height * .17,
               width: size.width * .3,
               decoration: BoxDecoration(
                   image: DecorationImage(image: AssetImage(icon))),

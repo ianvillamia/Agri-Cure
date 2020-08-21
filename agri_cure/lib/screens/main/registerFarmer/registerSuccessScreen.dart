@@ -1,3 +1,4 @@
+import 'package:agri_cure/services/routes.dart';
 import 'package:agri_cure/widgets/customTextStyles.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
@@ -57,7 +58,7 @@ class _RegisterSuccessScreenState extends State<RegisterSuccessScreen> {
                   borderRadius: BorderRadius.circular(30),
                 ),
                 onPressed: () {
-                  Navigator.pushNamed(context, '/homeScreen');
+                  Navigator.pushNamed(context, Routes.homeScreen);
                 },
                 child: Container(
                   width: size.width * .3,

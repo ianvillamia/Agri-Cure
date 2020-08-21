@@ -1,4 +1,5 @@
 import 'package:agri_cure/screens/onboarding/circles.dart';
+import 'package:agri_cure/services/routes.dart';
 import 'package:agri_cure/widgets/customTextStyles.dart';
 import 'package:agri_cure/widgets/customWidgets.dart';
 import 'package:animate_do/animate_do.dart';
@@ -22,7 +23,7 @@ class _Onboarding3State extends State<Onboarding3> {
     return Scaffold(
       body: GestureDetector(
         onTap: () {
-          Navigator.pushNamed(context, '/homeScreen');
+          Navigator.pushNamed(context, Routes.homeScreen);
         },
         child: Container(
           width: size.width,
