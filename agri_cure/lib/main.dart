@@ -1,3 +1,4 @@
+import 'package:agri_cure/splashscreen.dart';
 import 'package:flutter/material.dart';
 import 'services/routing.dart';
 import 'screens/Landing.dart';
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Landing(),
+      home: SplashScreens(),
     );
   }
 }

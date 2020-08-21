@@ -28,7 +28,7 @@ class _LandingState extends State<Landing> {
                 height: 300,
                 decoration: BoxDecoration(
                     image:
-                        DecorationImage(image: AssetImage('assets/icon1.png'))),
+                        DecorationImage(image: AssetImage('assets/logo.png'))),
               ),
             ),
             SlideInLeft(

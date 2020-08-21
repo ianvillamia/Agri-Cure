@@ -26,6 +26,8 @@ dependencies:
   fluro: 1.6.2
   splash_tap: ^0.1.2
   animate_do: ^1.7.2
+  provider: ^4.0.4
+  flare_splash_screen: ^3.0.1
 
 dev_dependencies:
   flutter_test:
