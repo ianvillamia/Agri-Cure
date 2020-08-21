@@ -18,50 +18,60 @@ class _HomeScreenState extends State<HomeScreen> {
         width: size.width,
         height: size.height,
         child: SlideInLeft(
-          child: Column(
-            children: <Widget>[
-              Column(
-                children: <Widget>[
-                  Container(
-                    height: size.height * .2,
-                    width: size.width * .2,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage('assets/icon1.png'))),
-                  ),
-                  Text(
-                    'AGRICURE',
-                    style: CustomTextStyles.boldText(size: 30),
-                  )
-                ],
-              ),
-              SizedBox(
-                height: size.height * .05,
-              ),
-              _buttonBuilder(
-                  size: size,
-                  icon: 'assets/home-icon1.png',
-                  ontap: () {
-                    Navigator.pushNamed(context, '/registerFarmer');
-                  },
-                  buttonText: 'MAG REHISTRO NG MAGSASAKA'),
-              SizedBox(
-                height: size.height * .05,
-              ),
-              _buttonBuilder(
-                  size: size,
-                  icon: 'assets/home-icon2.png',
-                  ontap: () {},
-                  buttonText: 'TALAAN NG MGA TRANSAKSYON'),
-              SizedBox(
-                height: size.height * .05,
-              ),
-              _buttonBuilder(
-                  size: size,
-                  icon: 'assets/home-icon3.png',
-                  ontap: () {},
-                  buttonText: 'TALAAN NG MGA PRODUKTO'),
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                Column(
+                  children: <Widget>[
+                    Container(
+                      height: size.height * .2,
+                      width: size.width * .2,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage('assets/icon1.png'))),
+                    ),
+                    Text(
+                      'AGRICURE',
+                      style: CustomTextStyles.boldText(size: 30),
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: size.height * .05,
+                ),
+                _buttonBuilder(
+                    size: size,
+                    icon: 'assets/home-icon1.png',
+                    ontap: () {
+                      Navigator.pushNamed(context, '/registerFarmer');
+                    },
+                    buttonText: 'MAG REHISTRO NG MAGSASAKA'),
+                SizedBox(
+                  height: size.height * .05,
+                ),
+                _buttonBuilder(
+                    size: size,
+                    icon: 'assets/home-icon4.png',
+                    ontap: () {},
+                    buttonText: 'Schedule Crop-Pickup'),
+                SizedBox(
+                  height: size.height * .05,
+                ),
+                _buttonBuilder(
+                    size: size,
+                    icon: 'assets/home-icon2.png',
+                    ontap: () {},
+                    buttonText: 'TALAAN NG MGA TRANSAKSYON'),
+                SizedBox(
+                  height: size.height * .05,
+                ),
+                _buttonBuilder(
+                    size: size,
+                    icon: 'assets/home-icon3.png',
+                    ontap: () {},
+                    buttonText: 'TALAAN NG MGA PRODUKTO'),
+              ],
+            ),
           ),
         ),
       ),

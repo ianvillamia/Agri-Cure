@@ -3,6 +3,7 @@ import 'package:agri_cure/screens/Landing.dart';
 import 'package:agri_cure/screens/LoginScreen.dart';
 
 import 'package:agri_cure/screens/main/homeScreen.dart';
+import 'package:agri_cure/screens/main/membersScreen.dart';
 import 'package:agri_cure/screens/main/registerFarm.dart';
 import 'package:agri_cure/screens/main/registerFarmerScreen.dart';
 import 'package:agri_cure/screens/main/registerSuccessScreen.dart';
@@ -38,6 +39,9 @@ class FluroRouter {
   static Handler _registerSuccessScreenHandler = Handler(
       handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
           RegisterSuccessScreen());
+  static Handler _membersScreenHandler = Handler(
+      handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
+          MembersScreen());
 //-----------------------Routenames----------------------------------------//
   static void setupRouter() {
     router.define('/',
@@ -58,6 +62,9 @@ class FluroRouter {
         transitionType: TransitionType.cupertino);
     router.define('/registerSuccess',
         handler: _registerSuccessScreenHandler,
+        transitionType: TransitionType.cupertino);
+    router.define('/membersScreen',
+        handler: _membersScreenHandler,
         transitionType: TransitionType.cupertino);
   }
 }
