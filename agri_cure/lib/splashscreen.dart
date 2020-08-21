@@ -13,7 +13,7 @@ class _SplashScreensState extends State<SplashScreens> {
 
   @override
   void initState() {
-    Future.delayed(Duration(seconds: 0)).then((_) => setState(() {
+    Future.delayed(Duration(milliseconds: 3500)).then((_) => setState(() {
           _isLoading = false;
         }));
     super.initState();
