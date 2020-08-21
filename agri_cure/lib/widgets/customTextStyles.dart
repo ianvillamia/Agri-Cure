@@ -7,7 +7,7 @@ class CustomTextStyles {
 
   static whiteText() {
     return TextStyle(
-        fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white);
+        fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white);
   }
 
   static coloredText({@required Color color, double size}) {
