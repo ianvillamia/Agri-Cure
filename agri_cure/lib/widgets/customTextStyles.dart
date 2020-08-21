@@ -9,4 +9,9 @@ class CustomTextStyles {
     return TextStyle(
         fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white);
   }
+
+  static coloredText({@required Color color, double size}) {
+    return TextStyle(
+        fontSize: size ?? 20, fontWeight: FontWeight.bold, color: color);
+  }
 }

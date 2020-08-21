@@ -58,7 +58,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       borderRadius: BorderRadius.circular(30),
                     ),
                     onPressed: () {
-                      //material to next screen
+                      Navigator.pushNamed(context, '/signupScreen');
                     },
                     child: Text(
                       'Sign-Up',

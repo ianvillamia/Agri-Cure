@@ -1,6 +1,7 @@
 import 'package:agri_cure/screens/onboarding/circles.dart';
 import 'package:agri_cure/widgets/customTextStyles.dart';
 import 'package:agri_cure/widgets/customWidgets.dart';
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:agri_cure/providers/pageVIewProvider.dart';
 import 'package:provider/provider.dart';
@@ -21,56 +22,78 @@ class _Onboarding3State extends State<Onboarding3> {
     return Scaffold(
       body: GestureDetector(
         onTap: () {
-          pageViewProvider.nextPage();
+          Navigator.pushNamed(context, '/homeScreen');
         },
         child: Container(
           width: size.width,
           height: size.height,
-          child: SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                SizedBox(
-                  height: size.height * .2,
-                ),
-                Container(
-                  width: size.width * .7,
-                  height: size.height * .2,
-                  color: Colors.grey,
-                ),
-                SizedBox(
-                  height: size.height * .05,
-                ),
-                Text(
-                  'TITLE',
-                  style: CustomTextStyles.boldText(),
-                ),
-                SizedBox(
-                  height: size.height * .05,
-                ),
-                Container(
-                  width: size.width * .8,
-                  height: size.height * .2,
-                  child: Text(
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ',
-                    style: CustomTextStyles.boldText(),
+          child: Stack(
+            children: <Widget>[
+              Container(
+                width: size.width,
+                height: size.height * .4,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage('assets/onboard-3.png'),
+                        fit: BoxFit.fill)),
+              ),
+              Positioned(
+                top: 250,
+                child: Container(
+                  width: size.width,
+                  height: size.height * .8,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20))),
+                  child: Padding(
+                    padding: const EdgeInsets.all(35),
+                    child: SingleChildScrollView(
+                      child: FadeInDown(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              'Mission',
+                              style: CustomTextStyles.boldText(size: 25),
+                            ),
+                            SizedBox(
+                              height: size.height * .01,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10),
+                              child: Text(
+                                'Upang matupad ang aming layunin, ang AgriCure ay sisiguraduhing mananatili ang sistematiko, ligtas, tapat at magpakakatiwalaang paglilingkod sa aming mga kasapi. Maglalaan ng mga napapanahong ulat tungkol sa kalagayang agrikultural at sisiguraduhing wala ng maluluging magsasaka. ',
+                                textAlign: TextAlign.left,
+                                style: TextStyle(fontSize: 20),
+                              ),
+                            ),
+                            SizedBox(
+                              height: size.height * .05,
+                            ),
+                            Container(
+                                width: size.width * .8,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: <Widget>[
+                                    CustomWidgets.circle(
+                                        color: Colors.grey, size: size),
+                                    CustomWidgets.circle(
+                                        color: Colors.grey, size: size),
+                                    CustomWidgets.circle(
+                                        color: Colors.green, size: size),
+                                  ],
+                                ))
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
                 ),
-                SizedBox(
-                  height: size.height * .08,
-                ),
-                Container(
-                    width: size.width * .8,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        CustomWidgets.circle(color: Colors.grey, size: size),
-                        CustomWidgets.circle(color: Colors.grey, size: size),
-                        CustomWidgets.circle(color: Colors.green, size: size),
-                        CustomWidgets.circle(color: Colors.grey, size: size),
-                      ],
-                    ))
-              ],
-            ),
+              )
+            ],
           ),
         ),
       ),
