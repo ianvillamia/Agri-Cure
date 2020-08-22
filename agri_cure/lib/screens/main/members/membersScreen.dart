@@ -1,6 +1,8 @@
+import 'package:agri_cure/models/farmers.dart';
 import 'package:agri_cure/services/routes.dart';
 import 'package:agri_cure/widgets/customTextStyles.dart';
 import 'package:animate_do/animate_do.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class MembersScreen extends StatefulWidget {
@@ -80,33 +82,25 @@ class _MembersScreenState extends State<MembersScreen> {
                             )
                           ],
                         ),
-                        SizedBox(
-                          height: size.height * .05,
-                        ),
-                        _buildCard(
-                            context: context,
-                            size: size,
-                            image: 'assets/female.png',
-                            name: 'BALLESTRA, SHEROLD C',
-                            address: 'SAPPAAC BANGUED ABRA'),
-                        SizedBox(
-                          height: size.height * .05,
-                        ),
-                        _buildCard(
-                            context: context,
-                            size: size,
-                            image: 'assets/male.png',
-                            name: 'BALLESTRA, SHEROLD C',
-                            address: 'SAPPAAC BANGUED ABRA'),
-                        SizedBox(
-                          height: size.height * .05,
-                        ),
-                        _buildCard(
-                            context: context,
-                            size: size,
-                            image: 'assets/male.png',
-                            name: 'BALLESTRA, SHEROLD C',
-                            address: 'SAPPAAC BANGUED ABRA'),
+                        StreamBuilder<QuerySnapshot>(
+                            stream: Firestore.instance
+                                .collection('farmers')
+                                .snapshots(),
+                            builder: (BuildContext context,
+                                AsyncSnapshot<QuerySnapshot> snapshot) {
+                              if (snapshot.hasData) {
+                                return Column(
+                                    children: snapshot.data.documents
+                                        .map((doc) => _buildCard(
+                                            context: context,
+                                            size: size,
+                                            doc: doc))
+                                        .toList());
+                              }
+                              return Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            })
                       ],
                     ))
               ],
@@ -117,23 +111,17 @@ class _MembersScreenState extends State<MembersScreen> {
     );
   }
 
-  _buildCard(
+  Widget _buildCard(
       {@required BuildContext context,
       @required size,
-      @required String image,
-      @required name,
-      @required address}) {
+      @required DocumentSnapshot doc}) {
+    Farmer farmer = Farmer().getNewFarmer(doc: doc);
     return Card(
       elevation: 5,
       child: InkWell(
         onTap: () {
           //call dialog here
-          showAlertDialog(
-              context: context,
-              size: size,
-              name: name,
-              address: address,
-              image: image);
+          showAlertDialog(context: context, size: size, farmer: farmer);
         },
         splashColor: Colors.blue,
         child: Container(
@@ -147,20 +135,23 @@ class _MembersScreenState extends State<MembersScreen> {
                   width: size.width * .2,
                   height: size.height * .2,
                   decoration: BoxDecoration(
-                      image: DecorationImage(image: AssetImage(image))),
+                      image: DecorationImage(
+                          image: AssetImage('assets/male.png'))),
                 ),
                 SizedBox(
                   width: size.width * .05,
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    SizedBox(
-                      height: size.height * .02,
-                    ),
-                    Text(name),
-                    Expanded(child: Text(address))
-                  ],
+                Flexible(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      SizedBox(
+                        height: size.height * .02,
+                      ),
+                      Text(farmer.firstName + " " + farmer.lastName),
+                      Expanded(child: Text(farmer.address))
+                    ],
+                  ),
                 )
               ],
             ),
@@ -173,9 +164,7 @@ class _MembersScreenState extends State<MembersScreen> {
   showAlertDialog(
       {@required BuildContext context,
       @required size,
-      @required name,
-      @required image,
-      @required address}) {
+      @required Farmer farmer}) {
     Size insize = size;
     showDialog(
       context: context,
@@ -184,7 +173,7 @@ class _MembersScreenState extends State<MembersScreen> {
           contentPadding: EdgeInsets.all(0),
           content: Container(
             width: insize.width * .4,
-            height: insize.height * .6,
+            height: insize.height * .8,
             child: Padding(
               padding: EdgeInsets.all(20),
               child: Column(
@@ -194,11 +183,15 @@ class _MembersScreenState extends State<MembersScreen> {
                     width: insize.width * .2,
                     height: insize.height * .2,
                     decoration: BoxDecoration(
-                        image: DecorationImage(image: AssetImage(image))),
+                        image: DecorationImage(
+                            image: AssetImage('assets/male.png'))),
                   ),
-                  Text("Name: \n" + name),
-                  Text('Address: \n' + address),
-                  Text('Date Registered:\n January 1,2020')
+                  Text("Name: \n" + farmer.firstName + " " + farmer.lastName),
+                  Text('Address: \n' + farmer.address),
+                  Text('Date Registered:\n' + farmer.dateRegistered),
+                  Text('Civil Status:\n' + farmer.civilStatus),
+                  Text('BirthDate :\n' + farmer.birthDate),
+                  Text('GovernmentId :\n' + farmer.governmentId),
                 ],
               ),
             ),

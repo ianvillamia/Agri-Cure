@@ -1,5 +1,7 @@
+import 'package:agri_cure/models/transactions.dart';
 import 'package:agri_cure/widgets/customTextStyles.dart';
 import 'package:animate_do/animate_do.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class TransactionsScreen extends StatefulWidget {
@@ -79,108 +81,25 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                             )
                           ],
                         ),
-                        SizedBox(
-                          height: size.height * .05,
-                        ),
-                        _buildCard(
-                            icon: Icons.train,
-                            context: context,
-                            size: size,
-                            transactionId: '112344',
-                            transactionDate: 'Oktubre 11,2019',
-                            transactionType: 'Crop-Delivery',
-                            transactionDetails:
-                                'He delivered the crop at the desired adress at Oktubre 11,2019 he notified the Association Admin immediately after this'),
-                        SizedBox(
-                          height: size.height * .01,
-                        ),
-                        _buildCard(
-                            icon: Icons.get_app,
-                            context: context,
-                            size: size,
-                            transactionId: '323222',
-                            transactionDate: 'Enero 10,2020',
-                            transactionType: 'Crop-Sold',
-                            transactionDetails:
-                                'Nabenta ko ang paninda sa Sampalok manila..Paki notify ang mga magsasaka ng Bulacan'),
-                        SizedBox(
-                          height: size.height * .01,
-                        ),
-                        _buildCard(
-                            icon: Icons.supervised_user_circle,
-                            context: context,
-                            size: size,
-                            transactionId: '23244',
-                            transactionDate: 'Marso 10,2020',
-                            transactionType: 'Farmer-Register',
-                            transactionDetails:
-                                'Farmer John register to Association'),
-                        _buildCard(
-                            icon: Icons.train,
-                            context: context,
-                            size: size,
-                            transactionId: '112344',
-                            transactionDate: 'Oktubre 11,2019',
-                            transactionType: 'Crop-Delivery',
-                            transactionDetails:
-                                'He delivered the crop at the desired adress at Oktubre 11,2019 he notified the Association Admin immediately after this'),
-                        SizedBox(
-                          height: size.height * .01,
-                        ),
-                        _buildCard(
-                            icon: Icons.get_app,
-                            context: context,
-                            size: size,
-                            transactionId: '323222',
-                            transactionDate: 'Enero 10,2020',
-                            transactionType: 'Crop-Sold',
-                            transactionDetails:
-                                'Nabenta ko ang paninda sa Sampalok manila..Paki notify ang mga magsasaka ng Bulacan'),
-                        SizedBox(
-                          height: size.height * .01,
-                        ),
-                        _buildCard(
-                            icon: Icons.supervised_user_circle,
-                            context: context,
-                            size: size,
-                            transactionId: '23244',
-                            transactionDate: 'Marso 10,2020',
-                            transactionType: 'Farmer-Register',
-                            transactionDetails:
-                                'Farmer John register to Association'),
-                        _buildCard(
-                            icon: Icons.train,
-                            context: context,
-                            size: size,
-                            transactionId: '112344',
-                            transactionDate: 'Oktubre 11,2019',
-                            transactionType: 'Crop-Delivery',
-                            transactionDetails:
-                                'He delivered the crop at the desired adress at Oktubre 11,2019 he notified the Association Admin immediately after this'),
-                        SizedBox(
-                          height: size.height * .01,
-                        ),
-                        _buildCard(
-                            icon: Icons.get_app,
-                            context: context,
-                            size: size,
-                            transactionId: '323222',
-                            transactionDate: 'Enero 10,2020',
-                            transactionType: 'Crop-Sold',
-                            transactionDetails:
-                                'Nabenta ko ang paninda sa Sampalok manila..Paki notify ang mga magsasaka ng Bulacan'),
-                        SizedBox(
-                          height: size.height * .01,
-                        ),
-                        _buildCard(
-                            icon: Icons.supervised_user_circle,
-                            context: context,
-                            size: size,
-                            transactionId: '23244',
-                            transactionDate: 'Marso 10,2020',
-                            transactionType: 'Farmer-Register',
-                            transactionDetails:
-                                'Farmer John register to Association'),
+                        StreamBuilder<QuerySnapshot>(
+                            stream: Firestore.instance
+                                .collection('transactions')
+                                .snapshots(),
+                            builder: (BuildContext context,
+                                AsyncSnapshot<QuerySnapshot> snapshot) {
+                              if (snapshot.hasData) {
+                                return Column(
+                                    children: snapshot.data.documents
+                                        .map((doc) => buildCard(
+                                            doc: doc,
+                                            size: size,
+                                            context: context))
+                                        .toList());
+                              }
+                              return Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            })
                       ],
                     ))
               ],
@@ -191,27 +110,37 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
     );
   }
 
-  _buildCard({
-    @required IconData icon,
-    @required BuildContext context,
+  Widget buildCard({
     @required size,
-    @required transactionType,
-    @required transactionId,
-    @required transactionDate,
-    @required transactionDetails,
+    @required DocumentSnapshot doc,
+    @required BuildContext context,
   }) {
+    var iconData = Icons.account_circle;
+    CustomTransaction transaction =
+        CustomTransaction().getNewTransaction(doc: doc);
+    switch (transaction.transcationType) {
+      case 'FarmerRegistered':
+        iconData = Icons.account_circle;
+        break;
+      case 'ScheduledForPickUp':
+        iconData = Icons.train;
+        break;
+      default:
+        iconData = Icons.accessibility;
+    }
+
     return Card(
         elevation: 5,
         child: InkWell(
           onTap: () {
             //call dialog here
-            showAlertDialog(
-                context: context,
-                size: size,
-                transactionType: transactionType,
-                transactionDate: transactionDate,
-                transactionDetails: transactionDetails,
-                transactionId: transactionId);
+            // showAlertDialog(
+            //     context: context,
+            //     size: size,
+            //     transactionType: transactionType,
+            //     transactionDate: transactionDate,
+            //     transactionDetails: transactionDetails,
+            //     transactionId: transactionId);
           },
           splashColor: Colors.blue,
           child: Container(
@@ -221,7 +150,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                 child: Row(
                   children: <Widget>[
                     Icon(
-                      icon,
+                      iconData,
                       size: 25,
                       color: Colors.black,
                     ),
@@ -229,11 +158,11 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                       width: size.width * .05,
                     ),
                     Flexible(
-                        child: Text(transactionId +
+                        child: Text(transaction.transactionId.toString() +
                             ' | ' +
-                            transactionType +
+                            transaction.transcationType.toString() +
                             ' | ' +
-                            transactionDate)),
+                            transaction.transactionDate.toString())),
                   ],
                 ),
               ),

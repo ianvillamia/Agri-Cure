@@ -1,6 +1,7 @@
 import 'package:agri_cure/screens/AuthScreen.dart';
 import 'package:agri_cure/screens/Landing.dart';
 import 'package:agri_cure/screens/LoginScreen.dart';
+import 'package:agri_cure/screens/main/cropInventory/cropAdd.dart';
 import 'package:agri_cure/screens/main/cropInventory/cropInventoryScreen.dart';
 import 'package:agri_cure/screens/main/cropPickUp/cropPickup.dart';
 import 'package:agri_cure/screens/main/cropPickUp/cropPickupSuccess.dart';
@@ -58,6 +59,9 @@ class FluroRouter {
   static Handler _cropInventoryScreen = Handler(
       handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
           CropInventory());
+  static Handler _addCropHandler = Handler(
+      handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
+          CropAdd());
 //-----------------------Routenames----------------------------------------//
   static void setupRouter() {
     router.define(Routes.def,
@@ -91,5 +95,7 @@ class FluroRouter {
     router.define(Routes.cropInventory,
         handler: _cropInventoryScreen,
         transitionType: TransitionType.cupertino);
+    router.define(Routes.addCrop,
+        handler: _addCropHandler, transitionType: TransitionType.cupertino);
   }
 }

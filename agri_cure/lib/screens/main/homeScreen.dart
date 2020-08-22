@@ -55,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     _buttonBuilder(
                         size: size,
-                        icon: 'assets/home-icon2.png',
+                        icon: 'assets/home-icon4.png',
                         ontap: () {
                           Navigator.pushNamed(context, Routes.cropPickup);
                         },
@@ -65,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     _buttonBuilder(
                         size: size,
-                        icon: 'assets/home-icon3.png',
+                        icon: 'assets/home-icon2.png',
                         ontap: () {
                           Navigator.pushNamed(
                               context, Routes.transactionScreen);
@@ -76,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     _buttonBuilder(
                         size: size,
-                        icon: 'assets/home-icon4.png',
+                        icon: 'assets/home-icon3.png',
                         ontap: () {
                           Navigator.pushNamed(context, Routes.cropInventory);
                         },

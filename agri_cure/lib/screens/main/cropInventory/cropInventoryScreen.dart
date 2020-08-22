@@ -1,5 +1,9 @@
+import 'package:agri_cure/models/cropInventoryModel.dart';
+import 'package:agri_cure/services/firestore/fireService.dart';
+import 'package:agri_cure/services/routes.dart';
 import 'package:agri_cure/widgets/customTextStyles.dart';
 import 'package:animate_do/animate_do.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class CropInventory extends StatefulWidget {
@@ -10,10 +14,19 @@ class CropInventory extends StatefulWidget {
 }
 
 class _CropInventoryState extends State<CropInventory> {
+  String selected = 'For-Sale';
+  String param = 'forSale';
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          //navigator push here
+          Navigator.pushNamed(context, Routes.addCrop);
+        },
+        child: Icon(Icons.add),
+      ),
       body: Container(
         width: size.width,
         height: size.height,
@@ -60,7 +73,7 @@ class _CropInventoryState extends State<CropInventory> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Text(
-                            'Crop Inventory',
+                            'Crop Inventory \n $selected',
                             style: CustomTextStyles.boldText(),
                           ),
                           Container(
@@ -85,14 +98,32 @@ class _CropInventoryState extends State<CropInventory> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: <Widget>[
                             _roundedButton(
+                                onTap: () {
+                                  setState(() {
+                                    selected = 'ForSale';
+                                    param = 'forSale';
+                                  });
+                                },
                                 size: size,
                                 color: Colors.greenAccent,
                                 buttonText: 'For-Sale'),
                             _roundedButton(
+                                onTap: () {
+                                  setState(() {
+                                    selected = 'Pending';
+                                    param = 'pending';
+                                  });
+                                },
                                 size: size,
                                 color: Colors.yellow,
                                 buttonText: 'Pending'),
                             _roundedButton(
+                                onTap: () {
+                                  setState(() {
+                                    selected = 'Bought';
+                                    param = 'bought';
+                                  });
+                                },
                                 size: size,
                                 color: Colors.red,
                                 buttonText: 'Bought'),
@@ -102,110 +133,26 @@ class _CropInventoryState extends State<CropInventory> {
                       Container(
                         height: size.height * .34,
                         child: SingleChildScrollView(
-                          child: Column(
-                            children: <Widget>[
-                              _buildCard(
-                                  icon: Icons.train,
-                                  context: context,
-                                  size: size,
-                                  transactionId: '112344',
-                                  transactionDate: 'Oktubre 11,2019',
-                                  transactionType: 'Crop-Delivery',
-                                  transactionDetails:
-                                      'He delivered the crop at the desired adress at Oktubre 11,2019 he notified the Association Admin immediately after this'),
-                              SizedBox(
-                                height: size.height * .01,
-                              ),
-                              _buildCard(
-                                  icon: Icons.get_app,
-                                  context: context,
-                                  size: size,
-                                  transactionId: '323222',
-                                  transactionDate: 'Enero 10,2020',
-                                  transactionType: 'Crop-Sold',
-                                  transactionDetails:
-                                      'Nabenta ko ang paninda sa Sampalok manila..Paki notify ang mga magsasaka ng Bulacan'),
-                              SizedBox(
-                                height: size.height * .01,
-                              ),
-                              _buildCard(
-                                  icon: Icons.supervised_user_circle,
-                                  context: context,
-                                  size: size,
-                                  transactionId: '23244',
-                                  transactionDate: 'Marso 10,2020',
-                                  transactionType: 'Farmer-Register',
-                                  transactionDetails:
-                                      'Farmer John register to Association'),
-                              _buildCard(
-                                  icon: Icons.train,
-                                  context: context,
-                                  size: size,
-                                  transactionId: '112344',
-                                  transactionDate: 'Oktubre 11,2019',
-                                  transactionType: 'Crop-Delivery',
-                                  transactionDetails:
-                                      'He delivered the crop at the desired adress at Oktubre 11,2019 he notified the Association Admin immediately after this'),
-                              SizedBox(
-                                height: size.height * .01,
-                              ),
-                              _buildCard(
-                                  icon: Icons.get_app,
-                                  context: context,
-                                  size: size,
-                                  transactionId: '323222',
-                                  transactionDate: 'Enero 10,2020',
-                                  transactionType: 'Crop-Sold',
-                                  transactionDetails:
-                                      'Nabenta ko ang paninda sa Sampalok manila..Paki notify ang mga magsasaka ng Bulacan'),
-                              SizedBox(
-                                height: size.height * .01,
-                              ),
-                              _buildCard(
-                                  icon: Icons.supervised_user_circle,
-                                  context: context,
-                                  size: size,
-                                  transactionId: '23244',
-                                  transactionDate: 'Marso 10,2020',
-                                  transactionType: 'Farmer-Register',
-                                  transactionDetails:
-                                      'Farmer John register to Association'),
-                              _buildCard(
-                                  icon: Icons.train,
-                                  context: context,
-                                  size: size,
-                                  transactionId: '112344',
-                                  transactionDate: 'Oktubre 11,2019',
-                                  transactionType: 'Crop-Delivery',
-                                  transactionDetails:
-                                      'He delivered the crop at the desired adress at Oktubre 11,2019 he notified the Association Admin immediately after this'),
-                              SizedBox(
-                                height: size.height * .01,
-                              ),
-                              _buildCard(
-                                  icon: Icons.get_app,
-                                  context: context,
-                                  size: size,
-                                  transactionId: '323222',
-                                  transactionDate: 'Enero 10,2020',
-                                  transactionType: 'Crop-Sold',
-                                  transactionDetails:
-                                      'Nabenta ko ang paninda sa Sampalok manila..Paki notify ang mga magsasaka ng Bulacan'),
-                              SizedBox(
-                                height: size.height * .01,
-                              ),
-                              _buildCard(
-                                  icon: Icons.supervised_user_circle,
-                                  context: context,
-                                  size: size,
-                                  transactionId: '23244',
-                                  transactionDate: 'Marso 10,2020',
-                                  transactionType: 'Farmer-Register',
-                                  transactionDetails:
-                                      'Farmer John register to Association'),
-                            ],
-                          ),
-                        ),
+                            child: StreamBuilder<QuerySnapshot>(
+                                stream: Firestore.instance
+                                    .collection('cropInventory')
+                                    .where('cropState', isEqualTo: param)
+                                    .snapshots(),
+                                builder: (BuildContext context,
+                                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                                  if (snapshot.hasData) {
+                                    return Column(
+                                        children: snapshot.data.documents
+                                            .map((doc) => _buildCard(
+                                                doc: doc,
+                                                context: context,
+                                                size: size))
+                                            .toList());
+                                  }
+                                  return Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                })),
                       )
                     ],
                   ))
@@ -216,15 +163,123 @@ class _CropInventoryState extends State<CropInventory> {
     );
   }
 
+  Widget _buildCard({
+    @required DocumentSnapshot doc,
+    @required BuildContext context,
+    @required size,
+  }) {
+    CropInventoryModel cropInventory =
+        CropInventoryModel().getNewCropInventory(doc: doc);
+    return Card(
+        elevation: 5,
+        child: InkWell(
+          onTap: () {
+            //call dialog here
+            showAlertDialog(
+                context: context, size: size, cropInventory: cropInventory);
+          },
+          splashColor: Colors.blue,
+          child: Container(
+            child: Padding(
+              padding: EdgeInsets.all(10),
+              child: Center(
+                child: Row(
+                  children: <Widget>[
+                    SizedBox(
+                      width: size.width * .05,
+                    ),
+                    Flexible(
+                        child: Text(cropInventory.productType +
+                            ' | ' +
+                            cropInventory.cropState.toUpperCase() +
+                            ' | ' +
+                            cropInventory.owner +
+                            ' | ' +
+                            cropInventory.description)),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ));
+  }
+
+  showAlertDialog(
+      {@required BuildContext context,
+      @required size,
+      @required CropInventoryModel cropInventory}) {
+    Size insize = size;
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          contentPadding: EdgeInsets.all(0),
+          content: Container(
+            width: insize.width * .4,
+            height: insize.height * .4,
+            child: Padding(
+              padding: EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    'Change Product State',
+                    style: CustomTextStyles.boldText(),
+                  ),
+                  _roundedButton(
+                      onTap: () async {
+                        await FireService()
+                            .changeInventoryToForSale(crop: cropInventory)
+                            .then((val) {
+                          Navigator.pop(context);
+                        });
+                      },
+                      size: size,
+                      color: Colors.greenAccent,
+                      buttonText: 'For-Sale'),
+                  _roundedButton(
+                      onTap: () async {
+                        await FireService()
+                            .changeInventoryToPending(crop: cropInventory)
+                            .then((val) {
+                          Navigator.pop(context);
+                        });
+                      },
+                      size: size,
+                      color: Colors.yellow,
+                      buttonText: 'Pending'),
+                  _roundedButton(
+                      onTap: () async {
+                        await FireService()
+                            .changeInventoryToForBought(crop: cropInventory)
+                            .then((val) {
+                          Navigator.pop(context);
+                        });
+                      },
+                      size: size,
+                      color: Colors.redAccent,
+                      buttonText: 'Bought'),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   _roundedButton(
-      {@required size, @required Color color, @required buttonText}) {
+      {@required size,
+      @required Color color,
+      @required buttonText,
+      @required onTap}) {
     return MaterialButton(
         height: size.height * .03,
         color: color,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30),
         ),
-        onPressed: () {},
+        onPressed: onTap,
         child: Container(
           width: size.width * .19,
           child: Row(
@@ -237,100 +292,5 @@ class _CropInventoryState extends State<CropInventory> {
             ],
           ),
         ));
-  }
-
-  _buildCard({
-    @required IconData icon,
-    @required BuildContext context,
-    @required size,
-    @required transactionType,
-    @required transactionId,
-    @required transactionDate,
-    @required transactionDetails,
-  }) {
-    return Card(
-        elevation: 5,
-        child: InkWell(
-          onTap: () {
-            //call dialog here
-            showAlertDialog(
-                context: context,
-                size: size,
-                transactionType: transactionType,
-                transactionDate: transactionDate,
-                transactionDetails: transactionDetails,
-                transactionId: transactionId);
-          },
-          splashColor: Colors.blue,
-          child: Container(
-            child: Padding(
-              padding: EdgeInsets.all(10),
-              child: Center(
-                child: Row(
-                  children: <Widget>[
-                    Icon(
-                      icon,
-                      size: 25,
-                      color: Colors.black,
-                    ),
-                    SizedBox(
-                      width: size.width * .05,
-                    ),
-                    Flexible(
-                        child: Text(transactionId +
-                            ' | ' +
-                            transactionType +
-                            ' | ' +
-                            transactionDate)),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ));
-  }
-
-  showAlertDialog(
-      {@required BuildContext context,
-      @required size,
-      @required transactionId,
-      @required transactionType,
-      @required transactionDate,
-      @required transactionDetails}) {
-    Size insize = size;
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          contentPadding: EdgeInsets.all(0),
-          content: Container(
-            width: insize.width * .4,
-            height: insize.height * .6,
-            child: Padding(
-              padding: EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text("TransactionID: \n" + transactionId),
-                  SizedBox(
-                    height: insize.height * .02,
-                  ),
-                  Text('TransactionType: \n' + transactionType),
-                  SizedBox(
-                    height: insize.height * .02,
-                  ),
-                  Text('Date:\n' + transactionDate),
-                  SizedBox(
-                    height: insize.height * .02,
-                  ),
-                  Text('Transaction Details \n' + transactionDetails)
-                ],
-              ),
-            ),
-          ),
-        );
-        ;
-      },
-    );
   }
 }

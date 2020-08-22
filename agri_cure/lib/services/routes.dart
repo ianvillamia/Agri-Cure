@@ -12,4 +12,5 @@ class Routes {
   static String cropPickUpSuccess = '/cropPickUpSuccess';
   static String transactionScreen = '/transactionScreen';
   static String cropInventory = '/cropInventory';
+  static String addCrop = '/addCrop';
 }
